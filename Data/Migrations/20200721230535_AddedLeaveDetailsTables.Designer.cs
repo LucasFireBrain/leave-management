@@ -280,7 +280,7 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestingEmplyeeId")
+                    b.Property<string>("RequestingEmployeeId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
@@ -292,7 +292,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("LeaveTypeId");
 
-                    b.HasIndex("RequestingEmplyeeId");
+                    b.HasIndex("RequestingEmployeeId");
 
                     b.ToTable("LeaveHistories");
                 });
@@ -416,7 +416,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasOne("leave_management.Data.Employee", "RequestingEmployee")
                         .WithMany()
-                        .HasForeignKey("RequestingEmplyeeId");
+                        .HasForeignKey("RequestingEmployeeId");
                 });
 #pragma warning restore 612, 618
         }

@@ -55,7 +55,7 @@ namespace leave_management.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestingEmplyeeId = table.Column<string>(nullable: true),
+                    RequestingEmployeeId = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     LeaveTypeId = table.Column<int>(nullable: false),
@@ -80,8 +80,8 @@ namespace leave_management.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LeaveHistories_AspNetUsers_RequestingEmplyeeId",
-                        column: x => x.RequestingEmplyeeId,
+                        name: "FK_LeaveHistories_AspNetUsers_RequestingEmployeeId",
+                        column: x => x.RequestingEmployeeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -108,9 +108,9 @@ namespace leave_management.Data.Migrations
                 column: "LeaveTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaveHistories_RequestingEmplyeeId",
+                name: "IX_LeaveHistories_RequestingEmployeeId",
                 table: "LeaveHistories",
-                column: "RequestingEmplyeeId");
+                column: "RequestingEmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
