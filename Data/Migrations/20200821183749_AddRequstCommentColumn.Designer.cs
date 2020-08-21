@@ -10,8 +10,8 @@ using leave_management.Data;
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200821154416_AddRequestCommentColumn")]
-    partial class AddRequestCommentColumn
+    [Migration("20200821183749_AddRequstCommentColumn")]
+    partial class AddRequstCommentColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -283,7 +283,7 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComments")
+                    b.Property<string>("RequestComment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestingEmployeeId")
@@ -384,7 +384,7 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComments")
+                    b.Property<string>("RequestComment")
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 

@@ -2,18 +2,12 @@
 
 namespace leave_management.Data.Migrations
 {
-    public partial class AddRequestCommentColumn : Migration
+    public partial class AddRequstCommentColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "RequestComments",
-                table: "LeaveRequestVM",
-                maxLength: 300,
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "RequestComments",
+                name: "RequestComment",
                 table: "LeaveRequests",
                 nullable: true);
         }
@@ -21,11 +15,7 @@ namespace leave_management.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "RequestComments",
-                table: "LeaveRequestVM");
-
-            migrationBuilder.DropColumn(
-                name: "RequestComments",
+                name: "RequestComment",
                 table: "LeaveRequests");
         }
     }

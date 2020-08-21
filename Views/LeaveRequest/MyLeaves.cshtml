@@ -27,7 +27,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table" id="tbData">
+<table class="table" id="tblData">
     <thead>
         <tr>
 
@@ -55,10 +55,10 @@
 @foreach (var item in Model.LeaveRequests) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @item.StartDate.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @item.EndDate.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LeaveType.Name)

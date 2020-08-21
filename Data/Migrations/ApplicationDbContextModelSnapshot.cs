@@ -281,7 +281,7 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComments")
+                    b.Property<string>("RequestComment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestingEmployeeId")
@@ -382,7 +382,7 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComments")
+                    b.Property<string>("RequestComment")
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
