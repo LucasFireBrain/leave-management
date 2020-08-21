@@ -52,7 +52,7 @@ namespace leave_management.Repository
 				.FirstOrDefault(item => item.Id == id);
 		}
 
-		public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string id)
+		public ICollection<LeaveAllocation> FindByEmployeeId(string id)
 		{
 			return FindAll()
 				.Where(q => q.EmployeeId == id)

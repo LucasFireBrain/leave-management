@@ -1,0 +1,88 @@
+﻿@model leave_management.Models.EmployeeLeaveRequestsVM
+
+@{
+    ViewData["Title"] = "MyLeaves";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Days Available</h1>
+<div class="jumbotron">
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Model.LeaveAllocations) { 
+                <li class="list-group-item">
+                    @item.LeaveType.Name <span> @item.NumberOfDays </span> @if (item.NumberOfDays == 1)
+                    {  <span> day</span> }
+                    else { 
+                        <span> days</span>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<h1>My Leaves</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="tbData">
+    <thead>
+        <tr>
+
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Leave Type
+            </th>
+            <th>
+                Date Requested
+            </th>
+
+            <th>
+                Status
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.LeaveRequests) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+
+            
+                @if (item.Approved == true) {
+                    <td> Approved </td>
+                }
+                else if (item.Approved == false) {
+                    <td> Rejected </td>
+                }
+                else { 
+                    <td> Pending </td>
+                }
+
+
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

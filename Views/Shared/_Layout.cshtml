@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="LeaveRequest" asp-action="Create">Apply for a Leave</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="LeaveRequest" asp-action="MyLeaves">My Leaves</a>
+                        </li>
 
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                         {
@@ -77,7 +80,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @* DATE PICKER SCRIPTS *@
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     @RenderSection("Scripts", required: false)

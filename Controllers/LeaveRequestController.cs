@@ -52,7 +52,64 @@ namespace leave_management.Controllers
 		// GET: LeaveRequestController/Details/5
 		public ActionResult Details(int id)
 		{
-			return View();
+
+			var leaveRequest = _leaveRequestRepo.FindById(id);
+			var model = _mapper.Map<LeaveRequestVM>(leaveRequest);
+
+			return View(model);
+		}
+
+		public ActionResult ApproveRequest(int id) {
+
+			try
+			{
+				var user = _userManager.GetUserAsync(User).Result;
+				var leaveRequest = _leaveRequestRepo.FindById(id);
+				var employeeId = leaveRequest.RequestingEmployeeId;
+				var leaveTypeId = leaveRequest.LeaveTypeId;
+				var allocation = _leaveAllocRepo.GetLeaveAllocationsByEmployeeAndType(employeeId, leaveTypeId);
+
+				//Substract days from allocation
+				var numberOfDays = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
+				allocation.NumberOfDays -= numberOfDays;
+
+				leaveRequest.Approved = true;
+				leaveRequest.ApprovedById = user.Id;
+				leaveRequest.DateActioned = DateTime.Now;
+
+				//Save
+				_leaveRequestRepo.Update(leaveRequest);
+				_leaveAllocRepo.Update(allocation); 
+				return RedirectToAction(nameof(Index));
+				
+			}
+			catch (Exception e)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
+			
+		}
+
+		public ActionResult RejectRequest(int id)
+		{
+			try
+			{
+				var leaveRequest = _leaveRequestRepo.FindById(id);
+				leaveRequest.Approved = false;
+				var user = _userManager.GetUserAsync(User).Result;
+				leaveRequest.ApprovedById = user.Id;
+				leaveRequest.DateActioned = DateTime.Now;
+
+				//Save
+				_leaveRequestRepo.Update(leaveRequest);
+				return RedirectToAction(nameof(Index));
+
+			}
+			catch (Exception e)
+			{
+				return RedirectToAction(nameof(Index));
+			}
 		}
 
 		// GET: LeaveRequestController/Create
@@ -132,13 +189,37 @@ namespace leave_management.Controllers
 					return View(model);
 				}
 
-				return RedirectToAction(nameof(Index),"Home");
+				return RedirectToAction("MyLeaves");
 			}
 			catch (Exception e)
 			{
 				ModelState.AddModelError("", e.Message);
 				return View(model);
 			}
+		}
+
+		
+		public ActionResult MyLeaves(int id)
+		{
+			var employee = _userManager.GetUserAsync(User).Result;
+			var employeeVM = _mapper.Map<EmployeeVM>(employee);
+			
+			var leaveRequests = _leaveRequestRepo.FindByEmployeeId(employee.Id);
+			var leaveRequestsVM = _mapper.Map<List<LeaveRequestVM>>(leaveRequests);
+			
+			var leaveAllocations = _leaveAllocRepo.FindByEmployeeId(employee.Id);
+			var leaveAllocationsVM = _mapper.Map<List<LeaveAllocationVM>>(leaveAllocations);
+
+			var model = new EmployeeLeaveRequestsVM
+			{
+				RequestingEmployee = employeeVM,
+				RequestingEmployeeId = employee.Id,
+				LeaveRequests = leaveRequestsVM,
+				LeaveAllocations = leaveAllocationsVM
+			};
+
+			
+			return View(model);
 		}
 
 		// GET: LeaveRequestController/Edit/5
