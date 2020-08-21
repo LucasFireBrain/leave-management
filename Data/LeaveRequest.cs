@@ -24,7 +24,7 @@ namespace leave_management.Data
 		public DateTime DateRequested { get; set; }
 		public DateTime DateActioned { get; set; }
 
-		public string? RequestComments { get; set; }
+		public string RequestComment { get; set; }
 
 		public bool? Approved { get; set; }
 		[ForeignKey("ApprovedById")]

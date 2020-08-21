@@ -25,7 +25,7 @@ namespace leave_management.Models
 
 		[Display(Name = "Employee Comments")]
 		[MaxLength(300)]
-		public string? RequestComments { get; set; }
+		public string RequestComment { get; set; }
 
 		public bool? Approved { get; set; }
 		public EmployeeVM ApprovedBy { get; set; }
@@ -62,7 +62,7 @@ namespace leave_management.Models
 
 		[Display(Name = "Employee Comments")]
 		[MaxLength(300)]
-		public string? RequestComments { get; set; }
+		public string RequestComment { get; set; }
 
 	}
 
