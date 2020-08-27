@@ -18,55 +18,56 @@ namespace leave_management.Repository
 			_db = db;
 		}
 
-		public bool Create(LeaveRequest entity)
+		public async Task<bool> Create(LeaveRequest entity)
 		{
 			_db.LeaveRequests.Add(entity);
-			return Save();
+			return await Save();
 		}
 
-		public bool Delete(LeaveRequest entity)
+		public async Task<bool> Delete(LeaveRequest entity)
 		{
 			_db.LeaveRequests.Remove(entity);
-			return Save();
+			return await Save();
 		}
 
-		public ICollection<LeaveRequest> FindAll()
+		public async Task<ICollection<LeaveRequest>> FindAll()
 		{
-			return _db.LeaveRequests
+			return await _db.LeaveRequests
 				.Include(q => q.RequestingEmployee)
 				.Include(q => q.ApprovedBy)
 				.Include(q => q.LeaveType)
-				.ToList();
+				.ToListAsync();
 		}
 
-		public LeaveRequest FindById(int id)
+		public async Task<LeaveRequest> FindById(int id)
 		{
-			return FindAll()
-				.FirstOrDefault(item => item.Id == id);
+			var leaveRequests = await FindAll();
+			return leaveRequests.FirstOrDefault(q => q.RequestingEmployeeId == id.ToString());
 		}
 
-		public ICollection<LeaveRequest> FindByEmployeeId(string id)
+		public async Task<ICollection<LeaveRequest>> FindByEmployeeId(string id)
 		{
-			return FindAll()
+			var leaveRequests = await FindAll();
+			return leaveRequests
 				.Where(q => q.RequestingEmployeeId == id.ToString())
 				.ToList();
 		}
 
-		public bool IsExists(int id)
+		public async Task<bool> IsExists(int id)
 		{
-			return _db.LeaveTypes.Any(q => q.Id == id);
+			return await _db.LeaveTypes.AnyAsync(q => q.Id == id);
 
 		}
 
-		public bool Save()
+		public async Task<bool> Save()
 		{
-			return _db.SaveChanges() > 0;
+			return await _db.SaveChangesAsync() > 0;
 		}
 
-		public bool Update(LeaveRequest entity)
+		public async Task<bool> Update(LeaveRequest entity)
 		{
 			_db.LeaveRequests.Update(entity);
-			return Save();
+			return await Save();
 		}
 	}
 }
