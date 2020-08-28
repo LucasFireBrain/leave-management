@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace leave_management.Controllers
 {
@@ -203,23 +204,34 @@ namespace leave_management.Controllers
 		{
 			var employee = await _userManager.GetUserAsync(User);
 			var employeeVM = _mapper.Map<EmployeeVM>(employee);
-			
-			var leaveRequests = await _leaveRequestRepo.FindByEmployeeId(employee.Id);
-			var leaveRequestsVM = _mapper.Map<List<LeaveRequestVM>>(leaveRequests);
-			
-			var leaveAllocations = await _leaveAllocRepo.FindByEmployeeId(employee.Id);
-			var leaveAllocationsVM = _mapper.Map<List<LeaveAllocationVM>>(leaveAllocations);
 
-			var model = new EmployeeLeaveRequestsVM
+			try
 			{
-				RequestingEmployee = employeeVM,
-				RequestingEmployeeId = employee.Id,
-				LeaveRequests = leaveRequestsVM,
-				LeaveAllocations = leaveAllocationsVM
-			};
-
+				var leaveRequests = await _leaveRequestRepo.FindByEmployeeId(employee.Id);
+				var leaveRequestsVM = _mapper.Map<List<LeaveRequestVM>>(leaveRequests);
 			
-			return View(model);
+				var leaveAllocations = await _leaveAllocRepo.FindByEmployeeId(employee.Id);
+				var leaveAllocationsVM = _mapper.Map<List<LeaveAllocationVM>>(leaveAllocations);
+				var model = new EmployeeLeaveRequestsVM
+				{
+					RequestingEmployee = employeeVM,
+					RequestingEmployeeId = employee.Id,
+					LeaveRequests = leaveRequestsVM,
+					LeaveAllocations = leaveAllocationsVM
+				};
+				return View(model);
+			}
+			catch {
+				var model = new EmployeeLeaveRequestsVM
+				{
+					RequestingEmployee = employeeVM,
+					RequestingEmployeeId = employee.Id,
+					LeaveRequests = null,
+					LeaveAllocations = null
+				};
+				return View(model);
+			}
+
 		}
 
 		// GET: LeaveRequestController/Edit/5

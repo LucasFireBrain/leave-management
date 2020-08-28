@@ -7,8 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200721224243_AddedEmplyeeDataPoints.cs" />
+    <Compile Remove="Data\Migrations\20200721224243_AddedEmplyeeDataPoints.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200721230535_AddedLeaveDetailsTables.cs" />
+    <Compile Remove="Data\Migrations\20200721230535_AddedLeaveDetailsTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200731050844_AddedDefaultDatesAndPeriodOnLeaveTypes.cs" />
+    <Compile Remove="Data\Migrations\20200731050844_AddedDefaultDatesAndPeriodOnLeaveTypes.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200805143831_ChangedLeaveHistoriesToLeaveRequests.cs" />
+    <Compile Remove="Data\Migrations\20200805143831_ChangedLeaveHistoriesToLeaveRequests.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200818193024_RenameColumnRequestingEmployee.cs" />
+    <Compile Remove="Data\Migrations\20200818193024_RenameColumnRequestingEmployee.Designer.cs" />
     <Compile Remove="Data\Migrations\20200821155517_AddRequestCommentColumn.cs" />
     <Compile Remove="Data\Migrations\20200821155517_AddRequestCommentColumn.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200821183749_AddRequstCommentColumn.cs" />
+    <Compile Remove="Data\Migrations\20200821183749_AddRequstCommentColumn.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200827230308_IntialMigration.cs" />
+    <Compile Remove="Data\Migrations\20200827230308_IntialMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200827232030_test.cs" />
+    <Compile Remove="Data\Migrations\20200827232030_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
